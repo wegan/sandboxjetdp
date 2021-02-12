@@ -5,12 +5,13 @@
 //   'ojs/ojcollectiondatagriddatasource'],
 //   function (ko, accUtils, endpoints) {
 
-define(['knockout', 'accUtils', 'text!../endpoints.json', 'ojs/ojdatagrid',
-  'ojs/ojcollectiondatagriddatasource',
-  'ojs/ojinputtext', 'ojs/ojformlayout'
-
-
-],
+define(
+  ['knockout',
+    'accUtils',
+    'text!../endpoints.json', 'ojs/ojdatagrid',
+    'ojs/ojcollectiondatagriddatasource',
+    'my-employee-form/loader'
+  ],
   function (ko, accUtils, endpoints) {
 
 
@@ -76,6 +77,22 @@ define(['knockout', 'accUtils', 'text!../endpoints.json', 'ojs/ojdatagrid',
         columns: ['FIRST_NAME', 'LAST_NAME', 'HIRE_DATE', 'SALARY']
       });
       //step3end
+
+      // Steps from Geertjan to add CRUD
+
+      self.update = function () {
+        self.empl = self.collection.get(self.inputEmployeeID());
+        self.empl.save(self.buildModel(), {
+          contentType: 'application/json',
+          success: function (model, response) {
+            console.log(self.inputEmployeeID() + ' -- updated successfully')
+          },
+          error: function (jqXHR, textStatus, errorThrown) {
+            console.log(self.inputEmployeeID() + " -- " + jqXHR);
+          }
+        });
+      };
+
 
       this.connected = () => {
         accUtils.announce('Dashboard page loaded.');

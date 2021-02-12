@@ -1,0 +1,19 @@
+<!--
+  Copyright (c) 2015, 2021, Oracle and/or its affiliates.
+  Licensed under The Universal Permissive License (UPL), Version 1.0
+  as shown at https://oss.oracle.com/licenses/upl/
+
+-->
+<p><oj-bind-text value="[[messageText]]"></oj-bind-text></p>
+<p>Code from Geertjan</p>
+<oj-bind-for-each data="[[employees]]"> 
+  <template> 
+         <my-employee-form 
+              first-name="[[$current.data.name]]" 
+              last-name="[[$current.data.lastname]]" 
+              hire-date="[[$current.data.hiredate]]" 
+              hire-salary="[[$current.data.salary]]"> 
+         </my-employee-form> 
+         <hr/> 
+   </template> 
+</oj-bind-for-each>

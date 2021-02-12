@@ -11,9 +11,9 @@
  * Example of Require.js boostrap javascript
  */
 
- // The UserAgent is used to detect IE11. Only IE11 requires ES5.
+// The UserAgent is used to detect IE11. Only IE11 requires ES5.
 (function () {
-  
+
   function _ojIsIE11() {
     var nAgt = navigator.userAgent;
     return nAgt.indexOf('MSIE') !== -1 || !!nAgt.match(/Trident.*rv:11./);
@@ -45,9 +45,9 @@
         'proj4': 'libs/proj4js/dist/proj4-src',
         'css': 'libs/require-css/css',
         'touchr': 'libs/touchr/touchr',
-        'corejs' : 'libs/corejs/shim',
+        'corejs': 'libs/corejs/shim',
         'chai': 'libs/chai/chai-4.2.0',
-        'regenerator-runtime' : 'libs/regenerator-runtime/runtime'
+        'regenerator-runtime': 'libs/regenerator-runtime/runtime'
       }
       // endinjector
     }
@@ -64,7 +64,7 @@ require(['ojs/ojbootstrap', 'knockout', 'appController', 'ojs/ojlogger', 'ojs/oj
   'ojs/ojmodule', 'ojs/ojnavigationlist', 'ojs/ojbutton', 'ojs/ojtoolbar'],
   function (Bootstrap, ko, app, Logger) { // this callback gets executed when all required modules are loaded
     Bootstrap.whenDocumentReady().then(
-      function() {
+      function () {
         function init() {
           // Bind your ViewModel for the content of the whole page body.
           ko.applyBindings(app, document.getElementById('globalBody'));

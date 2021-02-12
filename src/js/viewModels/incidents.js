@@ -8,20 +8,47 @@
 /*
  * Your incidents ViewModel code goes here
  */
-define(['accUtils'],
- function(accUtils) {
+define([
+  'knockout',
+  'accUtils',
+  'my-employee-form-container'
+],
+  function (ko, accUtils) {
     function IncidentsViewModel() {
-      // Below are a set of the ViewModel methods invoked by the oj-module component.
-      // Please reference the oj-module jsDoc for additional information.
 
       /**
-       * Optional ViewModel method invoked after the View is inserted into the
-       * document DOM.  The application can put logic that requires the DOM being
-       * attached here.
-       * This method might be called multiple times - after the View is created
-       * and inserted into the DOM and after the View is reconnected
-       * after being disconnected.
+       * This step in Geertjan's wiki uses JQuery, I think. Need to update it 
        */
+      //Step3begin from G's training https://github.com/geertjanw/ojet-training
+      // self.url = 'http://localhost:3000/employees';
+
+      self.employees = ko.observableArray();
+      $.getJSON("http://localhost:3000/employees").
+        then(function (data) {
+          var tempArray = [];
+          $.each(data, function () {
+            tempArray.push({
+              empno: this.id,
+              name: this.FIRST_NAME,
+              lastname: this.LAST_NAME,
+              hiredate: this.HIRE_DATE,
+              salary: this.SALARY
+            });
+          });
+          self.employees(tempArray);
+        });
+
+
+      // self.dataSource = new oj.CollectionDataGridDataSource(
+      //   self.collection, {
+      //   rowHeader: 'id',
+      //   columns: ['FIRST_NAME', 'LAST_NAME', 'HIRE_DATE', 'SALARY']
+      // });
+      //step3end
+
+
+      // EndStep1 Part B
+
       this.connected = () => {
         accUtils.announce('Incidents page loaded.');
         document.title = "Incidents";
