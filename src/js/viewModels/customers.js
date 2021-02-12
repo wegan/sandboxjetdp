@@ -8,47 +8,136 @@
 /*
  * Your customer ViewModel code goes here
  */
-define(['accUtils'],
- function(accUtils) {
-    function CustomerViewModel() {
-      // Below are a set of the ViewModel methods invoked by the oj-module component.
-      // Please reference the oj-module jsDoc for additional information.
+// define(['accUtils'],
+//   function (accUtils) {
+//     function CustomerViewModel() {
 
-      /**
-       * Optional ViewModel method invoked after the View is inserted into the
-       * document DOM.  The application can put logic that requires the DOM being
-       * attached here.
-       * This method might be called multiple times - after the View is created
-       * and inserted into the DOM and after the View is reconnected
-       * after being disconnected.
-       */
+define(['accUtils', 'text!../endpoints.json'],
+  function (accUtils, endpoints) {
+    function CustomerViewModel() {
+
+
+      /*
+      // Fetch from API
+      fetch('http://localhost:3000/employees').then(function (response) {
+        // The API call was successful!
+        console.log('API call succeeded. Response: ', response);
+      }).catch(function (err) {
+        // There was an error
+        console.warn('Something went wrong.', err);
+      });
+      */
+
+      // Get API data as a JSON object
+      /*
+      self.url = JSON.parse(endpoints).employees;
+      // fetch('http://localhost:3000/employees').then(function (response) {
+      fetch(url).then(function (response) {
+        // The API call was successful!
+        console.log('API call to URL: ', url);
+        return response.json();
+      }).then(function (data) {
+        // This is the JSON from our response
+        console.log('JSON from our response:', data);
+      }).catch(function (err) {
+        // There was an error
+        console.warn('Something went wrong.', err);
+      });
+      */
+
+      // Assign JSON var data to DataGrid....
+      // Is following code an option where we replace 
+      // self.collection with data
+      /*
+      self.dataSource = new oj.CollectionDataGridDataSource(
+        self.collection, {
+        rowHeader: 'id',
+        columns: ['FIRST_NAME', 'LAST_NAME', 'HIRE_DATE', 'SALARY']
+      });
+
+      No, because CollectionDataGridDataSource requires a collection as a parameter.
+      Following link has an example:
+      https://developer.mozilla.org/en-US/docs/Web/API/Body/json
+
+      
+
+      // Following is yet more code I tried and got thrown errors
+
+      const myList = document.querySelector('ul');
+      // const myRequest = new Request('products.json');
+      self.url = JSON.parse(endpoints).products;
+
+      fetch(url)
+        .then(response => response.json())
+        .then(data => {
+          for (const product of data.products) {
+            let listItem = document.createElement('li');
+            listItem.appendChild(
+              document.createElement('strong')
+            ).textContent = product.Name;
+            listItem.append(
+              ` can be found in ${product.Location
+              }. Cost: `
+            );
+            listItem.appendChild(
+              document.createElement('strong')
+            ).textContent = `£${product.Price}`;
+            myList.appendChild(listItem);
+          }
+        })
+        .catch(console.error);
+        
+
+
+      var myList = document.querySelector('ul');
+      self.url = JSON.parse(endpoints).products;
+
+      fetch(url)
+        .then(function (response) {
+          if (!response.ok) {
+            throw new Error("HTTP error, status = " + response.status);
+          }
+          return response.json();
+        })
+        .then(function (json) {
+          for (var i = 0; i < json.products.length; i++) {
+            var listItem = document.createElement('li');
+            listItem.innerHTML = '<strong>' + json.products[i].Name + '</strong>';
+            listItem.innerHTML += ' can be found in ' + json.products[i].Location + '.';
+            listItem.innerHTML += ' Cost: <strong>£' + json.products[i].Price + '</strong>';
+            myList.appendChild(listItem);
+          }
+        })
+        .catch(function (error) {
+          var p = document.createElement('p');
+          p.appendChild(
+            document.createTextNode('Error: ' + error.message)
+          );
+          const list = new FormData(document.getElementById('listcontainer'));
+
+          document.body.insertBefore(listcontainer, myList);
+        });
+
+        */
+
+
+
+      // Following is boilerplate code from 
       this.connected = () => {
         accUtils.announce('Customers page loaded.');
         document.title = "Customers";
         // Implement further logic if needed
       };
 
-      /**
-       * Optional ViewModel method invoked after the View is disconnected from the DOM.
-       */
       this.disconnected = () => {
         // Implement if needed
       };
 
-      /**
-       * Optional ViewModel method invoked after transition to the new View is complete.
-       * That includes any possible animation between the old and the new View.
-       */
       this.transitionCompleted = () => {
         // Implement if needed
       };
     }
 
-    /*
-     * Returns an instance of the ViewModel providing one instance of the ViewModel. If needed,
-     * return a constructor for the ViewModel so that the ViewModel is constructed
-     * each time the view is displayed.
-     */
     return CustomerViewModel;
   }
 );
