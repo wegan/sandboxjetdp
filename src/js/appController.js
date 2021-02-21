@@ -31,10 +31,10 @@ define(['knockout', 'ojs/ojcontext', 'ojs/ojmodule-element-utils', 'ojs/ojrespon
       this.smScreen = ResponsiveKnockoutUtils.createMediaQueryObservable(smQuery);
 
       let navData = [
-        { path: '', redirect: 'customers' },
+        { path: '', redirect: 'incidents' },
         { path: 'customers', detail: { label: 'Fetch API' } },
         { path: 'dashboard', detail: { label: 'Common Model API' } },
-        { path: 'incidents', detail: { label: 'Incidents' } },
+        { path: 'incidents', detail: { label: 'TODOs' } },
 
         { path: 'about', detail: { label: 'About' } }
       ];
