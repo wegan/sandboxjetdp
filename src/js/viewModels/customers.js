@@ -1,23 +1,39 @@
-/**
- * @license
- * Copyright (c) 2014, 2021, Oracle and/or its affiliates.
- * Licensed under The Universal Permissive License (UPL), Version 1.0
- * as shown at https://oss.oracle.com/licenses/upl/
- * @ignore
- */
-/*
- * Your customer ViewModel code goes here
- */
-// define(['accUtils'],
-//   function (accUtils) {
-//     function CustomerViewModel() {
+define(["accUtils", "text!../endpoints.json"], function (accUtils, endpoints) {
+  function CustomerViewModel() {
+    function refreshBusyContext() {
+      self.pageBusyContext = oj.Context.getPageContext().getBusyContext();
+      self.pageBusyContext.whenReady().then(function () {
+        console.log("page load is done");
 
-define(['accUtils', 'text!../endpoints.json'],
-  function (accUtils, endpoints) {
-    function CustomerViewModel() {
+        // Get div from page
+        const content = document.querySelector(".oj-hybrid-padding");
+        //console.log(content);
 
+        // Define a template literal with HTML elements to insert
+        const contentToInsert = `
+        <h1>This content is wrapped by an article</h1>
+        <ul>
+          <li>Volume: volume</li>
+          
+          <li>Lid status: lidOpen</li>
+        </ul>
+        `;
 
-      /*
+        // Create new element, article, and assign it an id and class
+        const newArticle = document.createElement("article");
+        newArticle.classList.add("contentToInsert");
+        newArticle.setAttribute("id", "fetchImpl");
+        newArticle.innerHTML = contentToInsert;
+
+        // Append it the div we retrieved at the start.
+        content.append(newArticle);
+        //weganEndCode
+      });
+    }
+
+    refreshBusyContext();
+
+    /*
       // Fetch from API
       fetch('http://localhost:3000/employees').then(function (response) {
         // The API call was successful!
@@ -28,8 +44,8 @@ define(['accUtils', 'text!../endpoints.json'],
       });
       */
 
-      // Get API data as a JSON object
-      /*
+    // Get API data as a JSON object
+    /*
       self.url = JSON.parse(endpoints).employees;
       // fetch('http://localhost:3000/employees').then(function (response) {
       fetch(url).then(function (response) {
@@ -45,10 +61,10 @@ define(['accUtils', 'text!../endpoints.json'],
       });
       */
 
-      // Assign JSON var data to DataGrid....
-      // Is following code an option where we replace 
-      // self.collection with data
-      /*
+    // Assign JSON var data to DataGrid....
+    // Is following code an option where we replace
+    // self.collection with data
+    /*
       self.dataSource = new oj.CollectionDataGridDataSource(
         self.collection, {
         rowHeader: 'id',
@@ -120,24 +136,21 @@ define(['accUtils', 'text!../endpoints.json'],
 
         */
 
+    // Following is boilerplate code from
+    this.connected = () => {
+      accUtils.announce("Customers page loaded.");
+      document.title = "Customers";
+      // Implement further logic if needed
+    };
 
+    this.disconnected = () => {
+      // Implement if needed
+    };
 
-      // Following is boilerplate code from 
-      this.connected = () => {
-        accUtils.announce('Customers page loaded.');
-        document.title = "Customers";
-        // Implement further logic if needed
-      };
-
-      this.disconnected = () => {
-        // Implement if needed
-      };
-
-      this.transitionCompleted = () => {
-        // Implement if needed
-      };
-    }
-
-    return CustomerViewModel;
+    this.transitionCompleted = () => {
+      // Implement if needed
+    };
   }
-);
+
+  return CustomerViewModel;
+});
